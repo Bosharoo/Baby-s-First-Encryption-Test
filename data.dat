@@ -1,0 +1,9 @@
+I AM ENCRYPTED
+0
+1000
+
+^this is the default test case
+syntax is as follows:
+MESSAGE
+1 or 0 (specifies right or left shift respectively)
+amount of times(n) message must be encrypted where 0 < n
