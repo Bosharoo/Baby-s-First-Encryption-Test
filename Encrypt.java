@@ -20,6 +20,15 @@ class Encrypt
    public static String encrypt(String message, int upDown, int loop)
    {
       String retMessage = "";
+		 	int shift = 0;
+		 	if (upDown > 0)
+			{
+					shift = 8;
+			}
+		 	else
+			{
+					shift = -8;
+			}
       if (upDown > 0)
       {
          for (int i = 0; i < message.length(); i++)
@@ -39,11 +48,21 @@ class Encrypt
                   }
                   index++;
                }
-               index += 8;
-               if (index >= 26)
-               {
-                  index -= 26;
-               }
+               index += shift;
+							 if (shift > 0)
+							 {
+								  if (index >= 26)
+									{
+										 index -= 26;
+									}
+							 }
+               else
+							 {
+								  if (index < 0)
+									{
+										 index += 26;
+									}
+							 }
                retMessage += abc[index];
             }
          }
@@ -59,45 +78,6 @@ class Encrypt
             return (retMessage + " loop#" + count + "\n") + encrypt(retMessage, upDown, loop-1);
          }
       }
-      else
-      {
-         for (int i = 0; i < message.length(); i++)
-         {
-            int index = 0;
-            if (message.substring(i, i+1).equals(" "))
-            {
-               retMessage += " ";
-            }
-            else
-            {
-               while (index < 26)
-               {
-                  if (message.substring(i, i+1).equals(abc[index]))
-                  {
-                     break;
-                  }
-                  index++;
-               }
-               index -= 8;
-               if (index < 0)
-               {
-                  index += 26;
-               }
-               retMessage += abc[index];
-            }  
-         }
-         count++;
-         if (loop == 1)
-         {
-            out.println(count);
-            return retMessage + " loop#" + count + "\n";
-         }
-         else
-         {
-            out.println(count);
-            return (retMessage + " loop#" + count + "\n") + encrypt(retMessage, upDown, loop-1);
-         }
-      }	
    }
 	
    public static void main(String args[])throws IOException
