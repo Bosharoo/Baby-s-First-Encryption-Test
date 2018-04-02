@@ -20,15 +20,15 @@ class Encrypt
    public static String encrypt(String message, int upDown, int loop)
    {
       String retMessage = "";
-		 	int shift = 0;
-		 	if (upDown > 0)
-			{
-					shift = 8;
-			}
-		 	else
-			{
-					shift = -8;
-			}
+      int shift = 0;
+      if (upDown > 0)
+      {
+	 shift = 8;
+      }
+      else
+      {
+         shift = -8;
+      }
       if (upDown > 0)
       {
          for (int i = 0; i < message.length(); i++)
@@ -49,20 +49,20 @@ class Encrypt
                   index++;
                }
                index += shift;
-							 if (shift > 0)
-							 {
-								  if (index >= 26)
-									{
-										 index -= 26;
-									}
-							 }
+	       if (shift > 0)
+	       {
+	          if (index >= 26)
+	          {
+		     index -= 26;
+		  }
+	       }
                else
-							 {
-								  if (index < 0)
-									{
-										 index += 26;
-									}
-							 }
+	       {
+	          if (index < 0)
+	          {
+		     index += 26;
+		  }
+               }
                retMessage += abc[index];
             }
          }
