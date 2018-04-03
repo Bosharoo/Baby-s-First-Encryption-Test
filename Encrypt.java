@@ -5,7 +5,7 @@ import static java.lang.System.*;
 class Encrypt
 {
    static String abc[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
-                 	  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+						  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
    static int count = 0;
 
    /**
@@ -15,7 +15,7 @@ class Encrypt
    *String message is the message being encrypted.
    *int upDown 1 instructs the method to shift indices to the right, whereas 0 instructs a left shift.
    *int loop specifies how many times the message must be encrypted.
-   *returns either encrypted message + loop # and, if required, recursively called ecrypt method.
+   *returns either encrypted message plus loop # and, if required, recursively called ecrypt method.
    */
    public static String encrypt(String message, int upDown, int loop)
    {
@@ -23,60 +23,51 @@ class Encrypt
       int shift = 0;
       if (upDown > 0)
       {
-	 shift = 8;
+         shift = 8;
       }
       else
       {
          shift = -8;
       }
-      if (upDown > 0)
+      for (int i = 0; i < message.length(); i++)
       {
-         for (int i = 0; i < message.length(); i++)
+         int index = 0;
+         if (message.substring(i, i+1).equals(" "))
          {
-            int index = 0;
-            if (message.substring(i, i+1).equals(" "))
-            {
-               retMessage += " ";
-            }
-            else
-            {
-               while (index < 26)
-               {
-                  if (message.substring(i, i+1).equals(abc[index]))
-                  {
-                     break;
-                  }
-                  index++;
-               }
-               index += shift;
-	       if (shift > 0)
-	       {
-	          if (index >= 26)
-	          {
-		     index -= 26;
-		  }
-	       }
-               else
-	       {
-	          if (index < 0)
-	          {
-		     index += 26;
-		  }
-               }
-               retMessage += abc[index];
-            }
-         }
-         count++;
-         if (loop == 1)
-         {
-            out.println(count);
-            return retMessage + " loop#" + count + "\n";
+            retMessage += " ";
          }
          else
          {
-            out.println(count);
-            return (retMessage + " loop#" + count + "\n") + encrypt(retMessage, upDown, loop-1);
+            while (index < 26)
+            {
+               if (message.substring(i, i+1).equals(abc[index]))
+               {
+                  break;
+               }
+               index++;
+            }
+            index += shift;
+            if (index >= 26)
+            {
+               index -= 26;
+            }
+            else if (index < 0)
+            {
+               index += 26;
+            }
+            retMessage += abc[index];
          }
+      }
+      count++;
+      if (loop == 1)
+      {
+         out.println(count);
+         return retMessage + " loop#" + count + "\n";
+      }
+      else
+      {
+         out.println(count);
+         return (retMessage + " loop#" + count + "\n") + encrypt(retMessage, upDown, loop-1);
       }
    }
 	
