@@ -9,15 +9,15 @@ class Encrypt
    static int count = 0;
 
    /**
-   *The encrypt method encrypts then writes a message to the output.txt using a rudimentary method of taking the
+   *The encrypt method encrypts then writes a message to the console using a rudimentary method of taking the
    *original characters and replacing them with characters who's indices are 8 away from the original in the English alphabet.
    *
    *String message is the message being encrypted.
    *int upDown 1 instructs the method to shift indices to the right, whereas 0 instructs a left shift.
    *int loop specifies how many times the message must be encrypted.
-   *returns either encrypted message plus loop # and, if required, recursively called ecrypt method.
+   *returns encrypted message.
    */
-   public static String encrypt(String message, int upDown, int loop)
+   public static String encrypt(String message, int upDown, int count)
    {
       String retMessage = "";
       int shift = 0;
@@ -58,17 +58,7 @@ class Encrypt
             retMessage += abc[index];
          }
       }
-      count++;
-      if (loop == 1)
-      {
-         out.println(count);
-         return retMessage + " loop#" + count + "\n";
-      }
-      else
-      {
-         out.println(count);
-         return (retMessage + " loop#" + count + "\n") + encrypt(retMessage, upDown, loop-1);
-      }
+      return retMessage + " loop#" + count + "\n";
    }
 	
    public static void main(String args[])throws IOException
@@ -78,8 +68,14 @@ class Encrypt
       int ud = inData.nextInt();
       int l = inData.nextInt();
       inData.close();
-      BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
-      writer.write(encrypt(mes, ud, l));
-      writer.close();
+      int count = 1;
+      while(l > 1)
+      {
+          out.println(encrypt(mes, ud, count));
+          int diff = 7 + String.valueOf(count).length();
+          mes = encrypt(mes, ud, count).substring(0, encrypt(mes, ud, count).length() - diff);
+          l--;
+          count++;
+      }
    }
 }
